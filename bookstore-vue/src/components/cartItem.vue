@@ -55,11 +55,24 @@ export default {
   data() {
     return {
       products: [
-        /*{
-                    name: String,
-                    count: Number,
-                    price: Number
-          }*/
+          {
+                    id:0,
+                    name: "String",
+                    quantity:5,
+                    price: 35
+          },
+          {
+                    id:1,
+                    name: "String",
+                    quantity:5,
+                    price: 35
+          },
+          {
+                    id:2,
+                    name: "String",
+                    quantity:5,
+                    price: 35
+          }
       ],
     };
   },
@@ -87,127 +100,130 @@ export default {
   },
 
   mounted() {
-    this.token = window.sessionStorage.getItem("token");
-    console.log("this is the token " + this.token);
-    console.log("read data");
+    // this.token = window.sessionStorage.getItem("token");
+    // console.log("this is the token " + this.token);
+    // console.log("read data");
 
-    var requestOptions = {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: this.token,
-    };
+    // var requestOptions = {
+    //   method: "POST",
+    //   headers: { "Content-Type": "application/json" },
+    //   body: this.token,
+    // };
 
-    console.log(requestOptions.body);
+    // console.log(requestOptions.body);
 
-    fetch("http://localhost:8080/customer/getCart", requestOptions)
-      .then((response) => response.text())
-      .then((result) => {
-        // here we read the cart from backend
-        this.products = JSON.parse(result);
-        console.log("results :" + result);
-        console.log(this.products);
-      })
-      .catch((error) => console.text("error", error));
+    // fetch("http://localhost:8080/customer/getCart", requestOptions)
+    //   .then((response) => response.text())
+    //   .then((result) => {
+    //     // here we read the cart from backend
+    //     this.products = JSON.parse(result);
+    //     console.log("results :" + result);
+    //     console.log(this.products);
+    //   })
+    //   .catch((error) => console.text("error", error));
   },
 
   methods: {
     incrementProduct(id) {
-      for (let i = 0; i < this.products.length; i++) {
-        if (this.products[i].id == id) {
-          if (this.products[i].quantity < this.products[i].Product_quantity) {
-            this.products[i].quantity++;
-          } else {
-            alert("you cannot increase the quantity of this product");
-          }
-        }
-      }
+      // for (let i = 0; i < this.products.length; i++) {
+      //   if (this.products[i].id == id) {
+      //     if (this.products[i].quantity < this.products[i].Product_quantity) {
+      //       this.products[i].quantity++;
+      //     } else {
+      //       alert("you cannot increase the quantity of this product");
+      //     }
+      //   }
+      // }
+      this.products[id].quantity++;
+      console.log(id);
     },
     decrementProduct(id) {
-      for (let i = 0; i < this.products.length; i++) {
-        if (this.products[i].id == id && this.products[i].quantity > 1) {
-          this.products[i].quantity--;
-          if (this.products[i].quantity <= 0) this.products.splice(i, 1);
-        }
-      }
+      // for (let i = 0; i < this.products.length; i++) {
+      //   if (this.products[i].id == id && this.products[i].quantity > 1) {
+      //     this.products[i].quantity--;
+      //     if (this.products[i].quantity <= 0) this.products.splice(i, 1);
+      //   }
+      // }
+      this.products[id].quantity--;
+      console.log(id);
     },
     saveCart() {
       console.log("save Cart");
-      var myHeader = new Headers();
-      myHeader.append("Content-Type", "application/json");
-      var raw1 = {
-        token: this.token,
-        products: this.toBackProds,
-      };
-      console.log(raw1);
+      // var myHeader = new Headers();
+      // myHeader.append("Content-Type", "application/json");
+      // var raw1 = {
+      //   token: this.token,
+      //   products: this.toBackProds,
+      // };
+      // console.log(raw1);
 
-      var requestOptions = {
-        method: "POST",
-        headers: myHeader,
-        body: JSON.stringify(raw1),
-      };
+      // var requestOptions = {
+      //   method: "POST",
+      //   headers: myHeader,
+      //   body: JSON.stringify(raw1),
+      // };
 
-      fetch("http://localhost:8080/customer/modifyCart", requestOptions)
-        .then((response) => response.text())
-        .then((result) => {
-          alert(result);
-          console.log(result);
-          this.$router.push("/");
-        })
-        .catch((error) => console.log("error", error));
+      // fetch("http://localhost:8080/customer/modifyCart", requestOptions)
+      //   .then((response) => response.text())
+      //   .then((result) => {
+      //     alert(result);
+      //     console.log(result);
+      //     this.$router.push("/");
+      //   })
+      //   .catch((error) => console.log("error", error));
     },
 
     checkOut() {
       console.log("check Out");
-      var myHeader = new Headers();
-      myHeader.append("Content-Type", "application/json");
-      var raw1 = this.token;
-      console.log(raw1); // you may loop over products and create new array of just two params or
-      // when show products in cart >> call a function that requests the price of every one and show it
-      var requestOptions = {
-        method: "POST",
-        headers: myHeader,
-        body: raw1,
-        redirect: "follow",
-      };
+      // var myHeader = new Headers();
+      // myHeader.append("Content-Type", "application/json");
+      // var raw1 = this.token;
+      // console.log(raw1); // you may loop over products and create new array of just two params or
+      // // when show products in cart >> call a function that requests the price of every one and show it
+      // var requestOptions = {
+      //   method: "POST",
+      //   headers: myHeader,
+      //   body: raw1,
+      //   redirect: "follow",
+      // };
 
-      fetch("http://localhost:8080/customer/buy", requestOptions)
-        .then((response) => response.text())
-        .then((result) => {
-          //show the message in an alert and go to home
-          alert(result);
-          //console.log(result);
-          this.$router.push("/");
-        })
-        .catch((error) => console.log("error", error));
+      // fetch("http://localhost:8080/customer/buy", requestOptions)
+      //   .then((response) => response.text())
+      //   .then((result) => {
+      //     //show the message in an alert and go to home
+      //     alert(result);
+      //     //console.log(result);
+      //     this.$router.push("/");
+      //   })
+      //   .catch((error) => console.log("error", error));
     },
 
     removeCart() {
-      // send empty cart to modify cart
       console.log("remove cart");
-      var myHeader = new Headers();
-      myHeader.append("Content-Type", "application/json");
-      this.products = [];
-      var raw1 = {
-        token: this.token,
-        products: this.products,
-      };
-      console.log(raw1);
+      // var myHeader = new Headers();
+      // myHeader.append("Content-Type", "application/json");
+      // this.products = [];
+      // var raw1 = {
+      //   token: this.token,
+      //   products: this.products,
+      // };
+      // console.log(raw1);
 
-      var requestOptions = {
-        method: "POST",
-        headers: myHeader,
-        body: JSON.stringify(raw1),
-        redirect: "follow",
-      };
+      // var requestOptions = {
+      //   method: "POST",
+      //   headers: myHeader,
+      //   body: JSON.stringify(raw1),
+      //   redirect: "follow",
+      // };
 
-      fetch("http://localhost:8080/customer/modifyCart", requestOptions)
-        .then((response) => response.text())
-        .then((result) => {
-          alert("cart is removed");
-          console.log(result);
-          this.$router.push("/");
-        })
-        .catch((error) => console.log("error", error));
+      // fetch("http://localhost:8080/customer/modifyCart", requestOptions)
+      //   .then((response) => response.text())
+      //   .then((result) => {
+      //     alert("cart is removed");
+      //     console.log(result);
+      //     this.$router.push("/");
+      //   })
+      //   .catch((error) => console.log("error", error));
     },
   },
 };

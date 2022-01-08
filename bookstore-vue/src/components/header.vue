@@ -14,20 +14,22 @@
       <li @click="homePage()">
         <img src="../image_test/home-64.png" alt="" />
       </li>
+      <!-- v-if="!this.$store.state.show && this.$store.state.sign" -->
       <li
-        v-if="!this.$store.state.show && this.$store.state.sign"
         @click="cartsuit()"
       >
         <img src="../image_test/shopping1.png" alt="" />
       </li>
-      <li v-if="this.$store.state.show" @click="addprod()">
+      <!-- v-if="this.$store.state.show" -->
+      <li  @click="addprod()">
         <img src="../image_test/add.png" alt="" />
       </li>
       <li @click="userPage()"><img src="../image_test/user.png" alt="" /></li>
       <li @click="settingPage()" class="seet">
         <img src="../image_test/setting.png" alt="" />
       </li>
-      <li v-if="this.$store.state.sign" @click="signout()">
+      <!-- v-if="this.$store.state.sign" -->
+      <li  @click="signout()">
         <img src="../image_test/sign.png" alt="" />
       </li>
     </ul>
@@ -118,7 +120,6 @@ nav .logo {
   align-items: center;
 }
 nav .search_box {
-  display: none; /**/
   margin: auto 0;
   height: 60px;
   width: 1100px;
@@ -208,7 +209,6 @@ nav .show {
   display: none;
 }
 .seet {
-  display: none;
 }
 
 @media screen and (max-width: 1000px) {
@@ -248,7 +248,6 @@ nav .show {
   }
   #btn:checked ~ nav .search_box {
     display: inline-flex;
-    display: none; /**/
   }
   nav .search_box {
     margin: auto;
