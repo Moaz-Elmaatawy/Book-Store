@@ -8,14 +8,15 @@
       <h2 class="productprice">{{ req_product.price }} EGP</h2>
       <div class="buttoncontainer" v-if="this.$store.state.sign">
         <!-- <button class="addtocart" @click="add_to_cart()">+</button> -->
+        <!-- v-if="!this.$store.state.show" -->
+        <!-- v-else -->
         <div class="outer circle">
           <button
-            v-if="!this.$store.state.show"
             @click="add_to_cart(req_product)"
           >
             <img src="../image_test/plus.png" alt="" />
           </button>
-          <button v-else @click="add_to_cart(req_product)">
+          <button @click="add_to_cart(req_product)">
             <img src="../image_test/x1.png" alt="" />
           </button>
           <span></span>
@@ -27,7 +28,7 @@
 </template>
 <script>
 export default {
-  name: "Product",
+  name: "Book",
   props: {
     req_product: Object,
   },
@@ -53,71 +54,60 @@ export default {
       }
     },
     add_to_cart: function (req_product) {
-      if (this.$store.state.show) {
-        // console.log("delete");
-        if (confirm("Do you really want to delete?")) {
-          var myHeaders1 = new Headers();
-          myHeaders1.append("Content-Type", "application/json");
-          var raw1 = JSON.stringify({
-            token: window.sessionStorage.getItem("token"),
-            product_id: [req_product.id.toString()],
-          });
+      // if (this.$store.state.show) {
+      //   // console.log("delete");
+      //   if (confirm("Do you really want to delete?")) {
+      //     var myHeaders1 = new Headers();
+      //     myHeaders1.append("Content-Type", "application/json");
+      //     var raw1 = JSON.stringify({
+      //       token: window.sessionStorage.getItem("token"),
+      //       product_id: [req_product.id.toString()],
+      //     });
 
-          var requestOptions1 = {
-            method: "POST",
-            headers: myHeaders1,
-            body: raw1,
-            redirect: "follow",
-          };
+      //     var requestOptions1 = {
+      //       method: "POST",
+      //       headers: myHeaders1,
+      //       body: raw1,
+      //       redirect: "follow",
+      //     };
 
-          fetch("http://127.0.0.1:8080/product/delete", requestOptions1)
-            .then((response) => response.text())
-            .then(() => {
-              this.$emit("update-cart");
-            })
-            .catch((error) => console.log("error", error));
-        }
-      } else {
-        // console.log("add_to_cart");
-        var myHeaders = new Headers();
-        myHeaders.append("Content-Type", "application/json");
-        var raw = JSON.stringify({
-          token: window.sessionStorage.getItem("token"),
-          product: req_product.id.toString(),
-        });
+      //     fetch("http://127.0.0.1:8080/product/delete", requestOptions1)
+      //       .then((response) => response.text())
+      //       .then(() => {
+      //         this.$emit("update-cart");
+      //       })
+      //       .catch((error) => console.log("error", error));
+      //   }
+      // } else {
+      //   // console.log("add_to_cart");
+      //   var myHeaders = new Headers();
+      //   myHeaders.append("Content-Type", "application/json");
+      //   var raw = JSON.stringify({
+      //     token: window.sessionStorage.getItem("token"),
+      //     product: req_product.id.toString(),
+      //   });
 
-        var requestOptions = {
-          method: "POST",
-          headers: myHeaders,
-          body: raw,
-          redirect: "follow",
-        };
+      //   var requestOptions = {
+      //     method: "POST",
+      //     headers: myHeaders,
+      //     body: raw,
+      //     redirect: "follow",
+      //   };
 
-        fetch("http://127.0.0.1:8080/customer/addToCart", requestOptions)
-          .then((response) => {
-            if (response.ok) {
-              response.text().then((result) => {
-                console.log(result);
-              });
-            } else {
-              response.text().then((err) => window.alert(err));
-            }
-          })
-          // }) response.text())
-          // .then((result) => {
-          //   console.log(result);
-          // })
-          .catch((error) => console.log("error", error));
-      }
+      //   fetch("http://127.0.0.1:8080/customer/addToCart", requestOptions)
+      //     .then((response) => {
+      //       if (response.ok) {
+      //         response.text().then((result) => {
+      //           console.log(result);
+      //         });
+      //       } else {
+      //         response.text().then((err) => window.alert(err));
+      //       }
+      //     })
+      //     .catch((error) => console.log("error", error));
+      // }
       console.log(req_product);
     },
-    // add_to_cart: function (req_product) {
-    //   this.$emit("update-cart", req_product);
-    //   this.$store.commit({
-    //     type: "changeName",
-    //     cart_id: req_product,
-    //   });
-    // },
   },
 };
 </script>
